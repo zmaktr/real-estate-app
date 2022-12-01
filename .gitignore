@@ -1,3 +1,12 @@
+app.code-workspace
+poetry*
+pyproject*
+.coverage*
+.DS_Store
+staticfiles
+mediafiles
+frontend/node_modules*
+
 # Created by https://www.toptal.com/developers/gitignore/api/react,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,python
 
