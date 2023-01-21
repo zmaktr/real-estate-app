@@ -41,7 +41,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_filters",
     "django_countries",
-    "phonenumber_field",
+    "phonenumber_field"
 ]
 
 LOCAL_APPS = [

@@ -4,14 +4,16 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 from . managers import CustomUserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    phone_number = PhoneNumberField(verbose_name=_("Phone Number"), max_length=30, blank=False, null=False)
     username = models.CharField(verbose_name=_('Username'), max_length=255, unique=True)
-    first_name = models.CharField(verbose_name=_('First Name'), max_length=50)
-    last_name = models.CharField(verbose_name=_('Last Name'), max_length=50)
+    first_name = models.CharField(verbose_name=_('First Name', max_length=50))
+    last_name = models.CharField(verbose_name=_('Last Name', max_legth=50))
     email = models.EmailField(verbose_name=('Email Address'), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
