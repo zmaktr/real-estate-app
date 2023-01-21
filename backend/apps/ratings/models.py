@@ -18,8 +18,16 @@ class Ratings(TimeStampUUIDModel):
         RATING_4 = 4, _("Very Good")
         RATING_5 = 5, _("Excellent")
     
-    rating_by_user = models.ForeignKey(User, verbose_name=_("Rating by user"), on_delete=models.SET_NULL, null=True)
-    agent_rated = models.ForeignKey(Profile, verbose_name=_("Agent rating"), on_delete=models.SET_NULL)
-    rating = models.IntegerField(verbose_name=_("Rating"), choices=Range.choices, help_text="1=Poor, 2=Fair, 3=Good, 4=Very good, 5=Excellent")
-    comment = models.TextField(verbose_name=_("Comment"))
+    rater = models.ForeignKey(User, verbose_name=_("Rating by user"), on_delete=models.SET_NULL, null=True)
+    agent = models.ForeignKey(Profile, verbose_name=_("Agent rating"), on_delete=models.SET_NULL, null=True)
+    rating = models.IntegerField(verbose_name=_("Rating"), choices=Range.choices, null=True, help_text="1=Poor, 2=Fair, 3=Good, 4=Very good, 5=Excellent")
+    comment = models.TextField(verbose_name=_("Comment"), null=True, blank=True)
+
+    class Meta:
+        unique_together = ["rater", "agent"]
+        verbose_name = "Rating"
+        verbose_name_plural = "Ratings"
+
+    def __str__(self):
+        return f"Agent {self.agent}'s rating given by {self.rater}"
 
