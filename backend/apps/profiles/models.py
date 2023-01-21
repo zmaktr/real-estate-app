@@ -8,19 +8,25 @@ from apps.common.models import TimeStampUUIDModel
 
 User = get_user_model()
 
+
 class Gender(models.TextChoices):
+    """
+    Gender class is used as a choice in Profile.gender but defined outside the Profile
+    class because this way user is not restricted to only choose from the provided 
+    choices strictly but can add any entry.
+    """
     MALE = "Male", _("Male")
     FEMALE = "Female", _("Female")
 
 class Profile(TimeStampUUIDModel):
-    user = models.OneToOneField("User", verbose_name=_("profile"), on_delete=models.CASCADE)
-    phone_number = models.PhoneNumberField(verbose_name=_("Phone Number"), max_length=30, blank=False, null=False)
+    user = models.OneToOneField(User, verbose_name=_("profile"), on_delete=models.CASCADE)
+    phone_number = PhoneNumberField(verbose_name=_("Phone Number"), max_length=30, blank=False, null=False)
     about_me = models.TextField(verbose_name=_("About me"), default=_("Say something about your self"))
     license_number = models.CharField(verbose_name=_("Realestate license"), max_length=20, blank=True, null=True)
-    profile_photo = models.ImageField(verbose_name =_("Profile Photo"), upload_to='/profile_photo', default='/profile_photo/default.png')
-    gender = models.CharField(verbose_name=_("Gender name") choices=Gender.choices)
+    profile_photo = models.ImageField(verbose_name =_("Profile Photo"), upload_to='profile_photo', default='/profile_photo/default.png')
+    gender = models.CharField(verbose_name=_("Gender name"), max_length=6, choices=Gender.choices)
     country = CountryField(verbose_name=_("Country"), blank=False, null=False)
-    city = models.CharField(verbose_name=_("City"), blank=False, null=False max_length=180)
+    city = models.CharField(verbose_name=_("City"), blank=False, null=False, max_length=180)
     is_buyer = models.BooleanField(verbose_name=_("Buyer"), default=False, help_text=_("Are you looking to buy a property"))
     is_seller = models.BooleanField(verbose_name=_("Seller"), default=False, help_text=_("Are you looking to sell a property"))
     is_agent = models.BooleanField(verbose_name=_("Agent"), default=False, help_text=_("Are you an agent"))
