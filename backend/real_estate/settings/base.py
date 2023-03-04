@@ -193,7 +193,7 @@ from datetime import timedelta
 SIMPLE_JWR = {
     "AUTH_HEADER_TYPES":("Bearer","JWT"),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
-    "REFRESH_TOKEN_LIFETIME": timedelta(day=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "SIGNING_KEY": env("SIGNING_KEY"),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "AUTH_TOKEN_CLASSES":("rest_framework_simplejwt.tokens.AccessToken")
@@ -216,6 +216,5 @@ DJOSER = {
         "user":"apps.users.serializers.UserSerializer",
         "current_user":"apps.users.serializers.CurrentUserSerializer",
         "user_delete":"djoser.serializers.UserDeleteSerializer"
-    }
-
+    } 
 }
