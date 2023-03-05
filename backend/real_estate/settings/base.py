@@ -184,7 +184,7 @@ logging.config.dictConfig({
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES":(
-        "rest_framework_simplejwt.authentication,JWTAuthentication"
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
@@ -218,3 +218,4 @@ DJOSER = {
         "user_delete":"djoser.serializers.UserDeleteSerializer"
     } 
 }
+
