@@ -33,3 +33,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         return representation
 
 
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    country = CountryField(name_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ['phone_number', 'profile_photo', 'about_me', 'license', 'gender', 'country', 'city', 'is_buyer', 'is_seller', 'is_agent']
