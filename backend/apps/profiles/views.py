@@ -18,7 +18,7 @@ class TopAgentListAPIView(generics.ListAPIView):
     queryset = Profile.objects.filter(top_agent=True)
     serializer_class = ProfileSerializer
 
-class GetProfileAPIView(generics.APIView):
+class GetProfileAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     renderer_classes = [ProfileJSONRenderer]
 
@@ -37,8 +37,8 @@ class UpdateProfileAPIView(APIView):
     def patch(self, request, username):
         try:
             Profile.objects.get(user__username=username)
-        except Profile.DoesNotExist:
-            raise ProfileNotFound
+        except Profile.DoesNotExist as e:
+            raise ProfileNotFound from e
         
         user_name = request.user.username
         if user_name != username:
