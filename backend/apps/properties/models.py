@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django_countries import CountryField
+from django_countries.fields import CountryField
 from apps.common.models import TimeStampUUIDModel
 
 
@@ -41,13 +41,13 @@ class Property(TimeStampUUIDModel):
     postal_code         = models.CharField      (verbose_name=_('Postal Code'), max_length=100, default='140')
     street_address      = models.CharField      (verbose_name=_('Street Address'), max_length=150, default='KG8 Avenue')
     property_number     = models.IntegerField   (verbose_name=_('Property Number'), validators=[MinValueValidator(1)], default=122)
-    price               = models.DecimalField   (verbose_name=_('Price'), max_digits=8, default=0.0)
+    price               = models.DecimalField   (verbose_name=_('Price'), max_digits=12, default=0.0, decimal_places=2)
     tax                 = models.DecimalField   (verbose_name=_('Property Tax'), max_digits=6, decimal_places=2, default=0.15, help_text='15% property tax')
     plot_area           = models.DecimalField   (verbose_name=_('Plot Area(m^2)'), max_digits=8, decimal_places=2, default=0.0)
     total_floors        = models.IntegerField   (verbose_name=_('Number of Floors'), default=0)
     bedrooms            = models.IntegerField   (verbose_name=_('Bedrooms'), default=1)
     bathrooms           = models.DecimalField   (verbose_name=_('Bathrooms'), max_digits=4, decimal_places=2, default=1.0)
-    advert_type         = models.CharField      (verbose_name=_('Advert Type'), max_length=50, choices=AdvertType, default=AdvertType.FOR_SALE)
+    advert_type         = models.CharField      (verbose_name=_('Advert Type'), max_length=50, choices=AdvertType.choices, default=AdvertType.FOR_SALE)
     property_type       = models.CharField      (verbose_name=_('Property Type'), max_length=50, choices=PropertyType.choices, default=PropertyType.OTHER)
     cover_photo         = models.ImageField     (verbose_name=_('Cover Photo'), default='/house_sample.jpg', null=True, blank=True)
     photo1              = models.ImageField     (default='/interior_sample.jpg', null=True, blank=True)
