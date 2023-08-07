@@ -82,3 +82,13 @@ class Property(TimeStampUUIDModel):
         return price_after_tax
 
 # track how many views our property has received using out IP address
+class PropertyViews(TimeStampUUIDModel):
+    ip = models.CharField(verbose_name=_("IP Address"), max_length=250)
+    property = models.ForeignKey(Property, related_name="property_views", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return (f"Total views on - {self.property.title} is - {self.property.views} view(s)")
+    
+    class Meta:
+        verbose_name = "Total View on Property"
+        verbose_name_plural = "Total Views on Properties"
